@@ -1,0 +1,14 @@
+
+<% include ./partials/header %>
+
+// needs to make a put request to an endpoint at a specific id
+// 1 -> make action url reference the id
+// 2 -> enable put request by putting ?_method=PUT or whatever that NPM module is
+
+<form action="/guitarists/<%= guitarist._id %>?_method=PUT" method="POST">
+	<input type="text" name="guitarist[name]" value="<%= guitarist.name %>">
+	<input type="text" name="guitarist[bio]" value="<%= guitarist.bio %>">
+	<button>submit</button>
+</form>
+
+<% include ./partials/footer %>
