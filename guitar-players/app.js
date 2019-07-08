@@ -66,7 +66,6 @@ app.post('/guitarists', (req, res) => {
 app.get('/guitarists/:id', (req, res) => {
 	// have to get guitarist id from req.body
 	let id = req.params.id;
-	console.log(req.params.id);
 	let foundGuitarist = Guitarist.findById(id, (err, foundGuitarist) => {
 		if (err) console.log(err);
 		else {
@@ -93,13 +92,10 @@ app.get('/guitarists/:id/edit', (req, res) => {
 app.put('/guitarists/:id', (req, res) => {
 	// get guitarist from req.params.id
 	let id = req.params.id;
-	console.log('req.params is:', req.params);
 	let guitarist = req.body.guitarist;
-	console.log(guitarist);
 	let foundGuitarist = Guitarist.findByIdAndUpdate(id, guitarist, (err, foundGuitarist) => {
 		if (err) console.log(err);
 		else {
-			console.log(foundGuitarist);
 			res.redirect('/');
 		}
 	});

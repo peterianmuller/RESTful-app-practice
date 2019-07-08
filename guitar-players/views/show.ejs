@@ -1,7 +1,6 @@
 
 
 
-
 <% include ./partials/header %>
 
 
@@ -11,7 +10,8 @@
 	<p><%= guitarist.bio%></p>	
 	<form method="POST" action="/guitarists/<%= guitarist._id %>?_method=DELETE" id="delete">
 			<button class="ui red basic button">Delete</button>
-	</form>	
+	</form>
+
 	</div>	
 
 
