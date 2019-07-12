@@ -39,7 +39,7 @@ app.get('/guitarists', (req, res) => {
 // New
 
 app.get('/guitarists/new', (req, res) => {
-	res.render('new');
+	res.render('guitarists/new');
 });
 
 // Create
@@ -68,7 +68,7 @@ app.get('/guitarists/:id', (req, res) => {
 					if (err) console.log(err);
 					else {
 						console.log(populatedGuitarist);
-						res.render('show', { guitarist: populatedGuitarist });
+						res.render('guitarists/show', { guitarist: populatedGuitarist });
 					}
 				});
 		}
@@ -83,7 +83,7 @@ app.get('/guitarists/:id/edit', (req, res) => {
 	let foundGuitarist = Guitarist.findById(id, (err, foundGuitarist) => {
 		if (err) console.log(err);
 		else {
-			res.render('edit', { guitarist: foundGuitarist });
+			res.render('guitarists/edit', { guitarist: foundGuitarist });
 		}
 	});
 	// show edit template and pass in desired guitarist
@@ -112,6 +112,41 @@ app.delete('/guitarists/:id', (req, res) => {
 			res.redirect('/');
 		}
 	});
+});
+
+// comment routs
+
+// new
+app.get('/guitarists/:id/comments/new', (req, res) => {
+	// show form to make new comment to user
+	Guitarist.findById(req.params.id, (err, foundGuitarist) => {
+		if (err) console.log(err);
+		else {
+			res.render('comments/new', { guitarist: foundGuitarist });
+		}
+	});
+});
+
+// create
+
+app.post('/guitarists/:id/comments', (req, res) => {
+	// find guitarist
+	Guitarist.findById(req.params.id, (err, foundGuitarist) => {
+		if (err) console.log(err);
+		else {
+			Comment.create(req.body.comment, (err, createdComment) => {
+				if (err) console.log(err);
+				else {
+					console.log(createdComment);
+					foundGuitarist.comments.push(createdComment);
+					foundGuitarist.save();
+					res.redirect(`/guitarists/${req.params.id}`);
+				}
+			});
+		}
+	});
+	// add coment
+	// guitarist.save
 });
 
 // listener
