@@ -1,0 +1,22 @@
+
+
+<% include ./partials/header %>
+
+
+<div class="ui text container">
+	 <div class="ui one column grid">
+	    <div class="column">
+				<%guitarists.forEach(guitarist=>{%>
+					<div>
+					<h2><%= guitarist.name %></h2>
+					<img src="<%= guitarist.image %>">
+					<p><%= guitarist.bio%></p>	
+					<a href="/guitarists/<%= guitarist._id%>/"><button class="ui basic button">Show More</button></a>
+					</div>	
+				<%})%>
+	    </div>
+	  </div>
+</div>
+
+
+<% include ./partials/footer %>
