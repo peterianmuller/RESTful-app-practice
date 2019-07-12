@@ -62,7 +62,15 @@ app.get('/guitarists/:id', (req, res) => {
 	let foundGuitarist = Guitarist.findById(id, (err, foundGuitarist) => {
 		if (err) console.log(err);
 		else {
-			res.render('show', { guitarist: foundGuitarist });
+			let foundGuitaristWithPopulatedComments = Guitarist.findById(id)
+				.populate('comments')
+				.exec((err, populatedGuitarist) => {
+					if (err) console.log(err);
+					else {
+						console.log(populatedGuitarist);
+						res.render('show', { guitarist: populatedGuitarist });
+					}
+				});
 		}
 	});
 	// then have show template have markup for one guitarist

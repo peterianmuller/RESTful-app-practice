@@ -25,28 +25,33 @@ seedDb = () => {
 	Guitarist.deleteMany({}, err => {
 		if (err) console.log(err);
 		else {
-			guitarists.forEach(guitarist => {
-				Guitarist.create(guitarist, (err, createdGuitarist) => {
-					if (err) console.log(err);
-					else {
-						// create new comment
-						Comment.create(
-							{
-								author: 'bill',
-								text:
-									'Disrupt cray unicorn sustainable, kinfolk tacos sartorial. Cloud bread meh art party, organic bespoke williamsburg tacos lo-fi la croix trust fund raw denim chicharrones aesthetic. '
-							},
-							(err, createdComment) => {
-								if (err) console.log(err);
-								else {
-									createdGuitarist.comments.push(createdComment);
-									createdGuitarist.save();
-									console.log(createdGuitarist);
-								}
+			// let's also delete comments here
+			Comment.deleteMany({}, err => {
+				if (err) console.log(err);
+				else {
+					guitarists.forEach(guitarist => {
+						Guitarist.create(guitarist, (err, createdGuitarist) => {
+							if (err) console.log(err);
+							else {
+								// create new comment
+								Comment.create(
+									{
+										author: 'bill',
+										text:
+											'Disrupt cray unicorn sustainable, kinfolk tacos sartorial. Cloud bread meh art party, organic bespoke williamsburg tacos lo-fi la croix trust fund raw denim chicharrones aesthetic. '
+									},
+									(err, createdComment) => {
+										if (err) console.log(err);
+										else {
+											createdGuitarist.comments.push(createdComment);
+											createdGuitarist.save();
+										}
+									}
+								);
 							}
-						);
-					}
-				});
+						});
+					});
+				}
 			});
 		}
 	});

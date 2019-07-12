@@ -4,7 +4,8 @@ Steps
 
 - Move guitarists model out of server file DONE
 - Create comments model and schema DONE
-- Create seed file
+- Create seed file DONE
+- Show comments on show route DONE
 - Create following routes
   new: get request to comment form
   create: post request
