@@ -3,7 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-const Guitarist = require('./models/guitarists/guitarist.js');
+const Guitarist = require('./models/guitarists/guitarist');
+const Comment = require('./models/comments/comment');
+const seedDb = require('./seed.js');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -15,6 +17,7 @@ app.use(methodOverride('_method')); //using method-override + what to look for i
 
 // connect to mognodb
 mongoose.connect('mongodb://localhost:27017/guitarists', { useNewUrlParser: true, useFindAndModify: false });
+seedDb();
 
 // routes
 
